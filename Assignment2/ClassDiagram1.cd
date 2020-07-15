@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Assignment2.Al" Collapsed="true">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAACAAAAAAQACAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Al.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Bob" Collapsed="true">
+    <Position X="9" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAACAAAAAAQACAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Bob.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Dog1" Collapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dog1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Dog2" Collapsed="true">
+    <Position X="11.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dog2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Dog3" Collapsed="true">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dog3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Dog4" Collapsed="true">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dog4.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.DogRace" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QYECiCAAACAAAAAEAgCAAAASAAIAIAAocCAoQRAEIIg=</HashCode>
+      <FileName>DogRace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Greyhound" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Greyhound.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Joe" Collapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAACAAAAAAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Joe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Program" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Punter" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Punter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Resource1" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAIAAAAAAAALQAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Properties.Resources" Collapsed="true">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment2.Properties.Settings" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>
