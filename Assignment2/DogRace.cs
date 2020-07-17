@@ -16,11 +16,13 @@ namespace Assignment2
         // Defining three Punters
         Punter[] Punters = new Punter[3];
 
-        // Defining the objects
+        // Defining the objects race dogs
         Greyhound D1;
         Greyhound D2;
         Greyhound D3;
         Greyhound D4;
+
+        Greyhound[] Dogs;
 
         public DogRace()
         {
@@ -45,66 +47,35 @@ namespace Assignment2
             Punters[1] = Factory.CreatePunter("Bob", 100);
             Punters[2] = Factory.CreatePunter("Al", 100);
 
-            // When the forms loads, I initialise the objects   
+            // Initialising the objects race dogs
             D1 = new Dog1(Dog1Label.Text, Dog1Picture);
             D2 = new Dog2(Dog2Label.Text, Dog2Picture);
             D3 = new Dog3(Dog3Label.Text, Dog3Picture);
             D4 = new Dog4(Dog4Label.Text, Dog4Picture);
+            // Setting race dogs array
+            Dogs = new Greyhound[4] { D1, D2, D3, D4 };
         }
 
         private void PlaceBetBtn_Click(object sender, EventArgs e)
         {
             // Each punter chosing dog and betting amount
-            if (JDogNoUpDown.Value == 1)
+            for (int n = 0; n < 4; n++)
             {
-                Punters[0].Betting(D1, Convert.ToInt32(JBetBox.Text));
-            }
-            else if (JDogNoUpDown.Value == 2)
-            {
-                Punters[0].Betting(D2, Convert.ToInt32(JBetBox.Text));
-            }
-            else if (JDogNoUpDown.Value == 3)
-            {
-                Punters[0].Betting(D3, Convert.ToInt32(JBetBox.Text));
-            }
-            else if (JDogNoUpDown.Value == 4)
-            {
-                Punters[0].Betting(D4, Convert.ToInt32(JBetBox.Text));
-            }
-            if (BDogNoUpDown.Value == 1)
-            {
-                Punters[1].Betting(D1, Convert.ToInt32(BBetBox.Text));
-            }
-            else if (BDogNoUpDown.Value == 2)
-            {
-                Punters[1].Betting(D2, Convert.ToInt32(BBetBox.Text));
-            }
-            else if (BDogNoUpDown.Value == 3)
-            {
-                Punters[1].Betting(D3, Convert.ToInt32(BBetBox.Text));
-            }
-            else if (BDogNoUpDown.Value == 4)
-            {
-                Punters[1].Betting(D4, Convert.ToInt32(BBetBox.Text));
-            }
-            if (ADogNoUpDown.Value == 1)
-            {
-                Punters[2].Betting(D1, Convert.ToInt32(ABetBox.Text));
-            }
-            else if (ADogNoUpDown.Value == 2)
-            {
-                Punters[2].Betting(D2, Convert.ToInt32(ABetBox.Text));
-            }
-            else if (ADogNoUpDown.Value == 3)
-            {
-                Punters[2].Betting(D3, Convert.ToInt32(ABetBox.Text));
-            }
-            else if (ADogNoUpDown.Value == 4)
-            {
-                Punters[2].Betting(D4, Convert.ToInt32(ABetBox.Text));
+                if (JDogNoUpDown.Value == n)
+                {
+                    Punters[0].Betting(Dogs[n], Convert.ToInt32(JBetBox.Text));
+                }
+                else if (BDogNoUpDown.Value == n)
+                {
+                    Punters[1].Betting(Dogs[n], Convert.ToInt32(BBetBox.Text));
+                }
+                else if (ADogNoUpDown.Value == n)
+                {
+                    Punters[2].Betting(Dogs[n], Convert.ToInt32(ABetBox.Text));
+                }
             }
 
-            // checking for betting 
+            // checking for betting availability
             if (Convert.ToInt32(JBetBox.Text) > Convert.ToInt32(JMax.Text))
             {
                 JBetBox.Text = JMax.Text;
@@ -118,39 +89,16 @@ namespace Assignment2
                 ABetBox.Text = AMax.Text;
             }
 
-
+            // New cash amount calculation
             JMax.Text = (Convert.ToInt32(JMax.Text) - Convert.ToInt32(JBetBox.Text)).ToString();
             BMax.Text = (Convert.ToInt32(BMax.Text) - Convert.ToInt32(BBetBox.Text)).ToString();
             AMax.Text = (Convert.ToInt32(AMax.Text) - Convert.ToInt32(ABetBox.Text)).ToString();
-
-
-
-            // Setting for BUSTED
-            if (0 > Convert.ToInt32(JMax.Text))
-            {
-                JBustedBox.Text = "BUSTED!";
-                JMax.Text = "0";
-                JBetBox.Text = "0";
-            }
-            if (0 > Convert.ToInt32(BMax.Text))
-            {
-                BBustedBox.Text = "BUSTED!";
-                BMax.Text = "0";
-                BBetBox.Text = "0";
-            }
-            if (0 > Convert.ToInt32(AMax.Text))
-            {
-                ABustedBox.Text = "BUSTED!";
-                AMax.Text = "0";
-                ABetBox.Text = "0";
-            }
 
             // Button enable or not
             PlaceBetBtn.Enabled = false;
             ResetBtn.Enabled = true;
             RaceBtn.Enabled = true;
         }
-
 
         private void ResetBtn_Click(object sender, EventArgs e)
         {
@@ -162,12 +110,15 @@ namespace Assignment2
             JMax.Text = "100";
             BMax.Text = "100";
             AMax.Text = "100";
+            // resetting bet nill for all
             JBetBox.Text = "0";
             BBetBox.Text = "0";
             ABetBox.Text = "0";
+            // restting dog number at 1 for all
             JDogNoUpDown.Value = 1;
             BDogNoUpDown.Value = 1;
             ADogNoUpDown.Value = 1;
+            // deleting BUSTED! if any
             JBustedBox.Text = "";
             BBustedBox.Text = "";
             ABustedBox.Text = "";
@@ -176,7 +127,11 @@ namespace Assignment2
         // slow movement using async and await
         private async void RaceBtn_Click(object sender, EventArgs e)
         {
-            // Setting for BUSTED again
+            // Button enable or not
+            PlaceBetBtn.Enabled = false;
+            ResetBtn.Enabled = false;
+            RaceBtn.Enabled = false;
+            // Setting for BUSTED
             if (Convert.ToInt32(JMax.Text) == 0 && Convert.ToInt32(JBetBox.Text) == 0)
             {
                 JBustedBox.Text = "BUSTED!";
@@ -208,251 +163,84 @@ namespace Assignment2
 
                 await Task.Delay(200);
             }
-            // setting variables with null
+            // setting variables with blank
             string winner = "";
             string looser = "";
 
-            // 4 dogs racing
-            for (int i = 0; i < 4; i++)
+            // 4 times race dogs using array
+            for (int n = 0; n < 4; n++)
             {
-                // Dog1 winning case
-                if (D1.Picture.Location.X >= 700)
+                // Dog winning case
+                if (Dogs[n].Picture.Location.X >= 700)
                 {
-                    winner = D1.Number;
+                    winner = Dogs[n].Number;
                     if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nJoe, Bob & Al won!"; // winning punter
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nJoe, Bob & Al won!"; // winning punter
+                        JMax.Text = (Convert.ToInt32(JBetBox.Text) * 2 + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount (bet * 2)
+                        BMax.Text = (Convert.ToInt32(BBetBox.Text) * 2 + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount (bet * 2)
+                        AMax.Text = (Convert.ToInt32(ABetBox.Text) * 2 + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount (bet * 2)
                     }
                     else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nJoe & Bob won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nJoe & Bob won!";
+                        JMax.Text = (Convert.ToInt32(JBetBox.Text) * 2 + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount (bet * 2)
+                        BMax.Text = (Convert.ToInt32(BBetBox.Text) * 2 + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount (bet * 2)
                         looser = "\r\nAl lost!";
                     }
                     else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nJoe & Al won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nJoe & Al won!";
+                        JMax.Text = (Convert.ToInt32(JBetBox.Text) * 2 + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount (bet * 2)
+                        AMax.Text = (Convert.ToInt32(ABetBox.Text) * 2 + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount (bet * 2)
                         looser = "\r\nBob lost!";
                     }
                     else if (winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nBob & Al won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nBob & Al won!";
+                        BMax.Text = (Convert.ToInt32(BBetBox.Text) * 2 + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount (bet * 2)
+                        AMax.Text = (Convert.ToInt32(ABetBox.Text) * 2 + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount (bet * 2)
                         looser = "\r\nJoe lost!";
                     }
                     else if (winner == "Dog" + JDogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nJoe won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nJoe won!";
+                        JMax.Text = (Convert.ToInt32(JBetBox.Text) * 2 + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount (bet * 2)
                         looser = "\r\nBob & Al lost!";
                     }
                     else if (winner == "Dog" + BDogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nBob won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nBob won!";
+                        BMax.Text = (Convert.ToInt32(BBetBox.Text) * 2 + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount (bet * 2)
                         looser = "\r\nJoe & Al lost!";
                     }
                     else if (winner == "Dog" + ADogNoUpDown.Value)
                     {
-                        winner = D1.Number + ".\r\nAl won!";
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
+                        winner = Dogs[n].Number + ".\r\nAl won!";
+                        AMax.Text = (Convert.ToInt32(ABetBox.Text) * 2 + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount (bet * 2)
                         looser = "\r\nJoe & Bob lost!";
                     }
                     else
                     {
                         looser = "\r\nAll lost!";
                     }
-                }
-                else if (D2.Picture.Location.X >= 700)
-                {
-                    winner = D2.Number;
-                    if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nJoe, Bob & Al won!"; // winning punter
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nJoe & Bob won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nAl lost!";
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nJoe & Al won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nBob lost!";
-                    }
-                    else if (winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nBob & Al won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe lost!";
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nJoe won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nBob & Al lost!";
-                    }
-                    else if (winner == "Dog" + BDogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nBob won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe & Al lost!";
-                    }
-                    else if (winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D2.Number + ".\r\nAl won!";
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe & Bob lost!";
-                    }
-                    else
-                    {
-                        looser = "\r\nAll lost!";
-                    }
-                }
-                else if (D3.Picture.Location.X >= 700)
-                {
-                    winner = D3.Number;
-                    if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nJoe, Bob & Al won!"; // winning punter
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nJoe & Bob won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nAl lost!";
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nJoe & Al won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nBob lost!";
-                    }
-                    else if (winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nBob & Al won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe lost!";
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nJoe won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nBob & Al lost!";
-                    }
-                    else if (winner == "Dog" + BDogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nBob won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe & Al lost!";
-                    }
-                    else if (winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D3.Number + ".\r\nAl won!";
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe & Bob lost!";
-                    }
-                    else
-                    {
-                        looser = "\r\nAll lost!";
-                    }
-                }
-                else if (D4.Picture.Location.X >= 700)
-                {
-                    winner = D4.Number;
-                    if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nJoe, Bob & Al won!"; // winning punter
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + BDogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nJoe & Bob won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nAl lost!";
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nJoe & Al won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nBob lost!";
-                    }
-                    else if (winner == "Dog" + BDogNoUpDown.Value && winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nBob & Al won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe lost!";
-                    }
-                    else if (winner == "Dog" + JDogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nJoe won!";
-                        JMax.Text = (Convert.ToInt32(JBetBox.Text) + Convert.ToInt32(JMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nBob & Al lost!";
-                    }
-                    else if (winner == "Dog" + BDogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nBob won!";
-                        BMax.Text = (Convert.ToInt32(BBetBox.Text) + Convert.ToInt32(BMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe & Al lost!";
-                    }
-                    else if (winner == "Dog" + ADogNoUpDown.Value)
-                    {
-                        winner = D4.Number + ".\r\nAl won!";
-                        AMax.Text = (Convert.ToInt32(ABetBox.Text) + Convert.ToInt32(AMax.Text)).ToString(); // after winning cash amount
-                        looser = "\r\nJoe & Bob lost!";
-                    }
-                    else
-                    {
-                        looser = "\r\nAll lost!";
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Something went wrong!");
                 }
             }
-            MessageBox.Show("The dog race is finished and winner is " + winner + ". " + looser);
 
+            // Showing result in message box
+            MessageBox.Show("The dog race is finished and winner is " + winner + ". " + looser);
+            // Resetting the race dogs at starting point
             D1.Picture.Location = new Point(35, 35);
             D2.Picture.Location = new Point(35, 95);
             D3.Picture.Location = new Point(35, 155);
             D4.Picture.Location = new Point(35, 215);
-
+            // Resetting the buttons avvailability
             PlaceBetBtn.Enabled = true;
             ResetBtn.Enabled = true;
             RaceBtn.Enabled = false;
 
         }
-
-        private void JBetBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
+
+
